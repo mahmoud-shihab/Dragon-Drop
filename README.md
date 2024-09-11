@@ -583,7 +583,7 @@ Response body example:
     - Home Page
     - Character Sheet Page
 
-#### Phase 3: Database Setup
+### Phase 3: Database Setup
 - Database
   - Set up Database
   - Create collections
@@ -603,13 +603,13 @@ Response body example:
       - `DELETE`
       - `PUT`
 
-#### Phase 5: Integration
+### Phase 5: Integration
 - Back End
   - Connect to Database
 - Front End
   - Connect to API
 
-#### Phase 6: Capstone Showcase
+### Phase 6: Capstone Showcase
 - Test full product
 - Demo MVP
 
