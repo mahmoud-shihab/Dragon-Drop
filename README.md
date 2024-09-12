@@ -1,8 +1,8 @@
-# TBD
+# Dragon Drop
 
 ## Overview
 
-It's a place where TTRPG players can customize their character sheet with a Drag and Drop interface.
+It's a place where Tabletop Roleplaying Game (TTRPG) players can customize their character sheet with a Drag and Drop interface.
 
 ### Problem Space
 
