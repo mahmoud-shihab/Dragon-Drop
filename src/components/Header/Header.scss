@@ -1,0 +1,21 @@
+.header{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+    &__logo{
+        width: 100px;
+        border-radius: 30%;
+    }
+    &__button{
+        padding: 10px;
+        background-color: rgba(193, 57, 56,1);
+        color: white;
+        border-radius: 30%;
+        border: none;
+        cursor: pointer;
+    }
+}
