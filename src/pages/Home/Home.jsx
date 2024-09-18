@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
+import DragSpace from "../../components/DragSpace/DragSpace";
 import "./Home.scss";
 
 function Home() {
     return (
-        <ul>
-            <li><Link to="/playground">Playground</Link></li>
-            <li><Link to="/tasks">Tasks</Link></li>
-        </ul>
+        <div className="home">
+            <DragSpace />
+        </div>
     );
 }
 
