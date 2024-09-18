@@ -1,0 +1,48 @@
+@use "../../styles/partials/_colors.scss" as c;
+
+.drag-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    overflow-wrap: break-word;
+    background-color: transparent;
+    position: absolute;
+    background-color: rgba($color: #fff, $alpha: 0.3);
+    &__name {
+        font-weight: 700;
+        font-size: 3rem;
+    }
+    &__text {
+        padding: 10px;
+        background-color: rgba($color: #fff, $alpha: 0.3);
+        &-area {
+            background-color: transparent;
+            width: 100%;
+            height: 100%;
+            resize: none;
+            border: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+    }
+    &__portrait {
+        border-radius: 100px;
+        img {
+            border-radius: 100px;
+        }
+    }
+    &__skill {
+        // border: none;
+        &-button {
+            padding: 20px;
+            color: white;
+            background-color: c.$site-red;
+            border-radius: 20px;
+        }
+    }
+}

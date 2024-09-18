@@ -1,0 +1,25 @@
+@use "../../styles/partials/_colors.scss" as c;
+
+.header{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+    &__logo{
+        width: 100px;
+    }
+    &__title{
+        font-size: 4rem;
+    }
+    &__button{
+        padding: 10px;
+        background-color: c.$site-red;
+        color: white;
+        border-radius: 30%;
+        border: none;
+        cursor: pointer;
+    }
+}
