@@ -1,0 +1,17 @@
+@use "./styles/partials/_typography.scss" as *;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "RobotoSlab"
+}
+
+a, input, textarea{
+    font: inherit;
+    color: inherit;
+}
+
+a{
+    text-decoration: none;
+}
