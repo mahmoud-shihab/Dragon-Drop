@@ -72,7 +72,7 @@ function DragSpace() {
     const [boxes, setBoxes] = useState([]);
 
     async function getSheetData(){
-        const {data} = await axios.get("http://localhost:8080")
+        const {data} = await axios.get("http://localhost:8080/api/v1/sheet_id")
         console.log(data)
         setBoxes(data.character_sheet)
     }
