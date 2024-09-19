@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DndContext, useSensors, useSensor, MouseSensor, TouchSensor } from "@dnd-kit/core";
 import Modal from "react-modal";
 import { v4 as uuidv4 } from "uuid"; // Import uuid
 import { createSnapModifier } from "@dnd-kit/modifiers";
+import axios from "axios";
 import "./DragSpace.scss";
 import ModalWindow from "../ModalWindow/ModalWindow";
 import AddNewBoxButton from "../AddNewBoxButton/AddNewBoxButton";
@@ -69,6 +70,17 @@ function findOpenPosition(newBoxSize, boxes) {
 
 function DragSpace() {
     const [boxes, setBoxes] = useState([]);
+
+    async function getSheetData(){
+        const {data} = await axios.get("http://localhost:8080")
+        console.log(data)
+        setBoxes(data.character_sheet)
+    }
+
+    useEffect(()=>{
+        getSheetData()
+    },[])
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedBox, setSelectedBox] = useState(null);
     const [boxText, setBoxText] = useState("");
