@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {useParams} from "react-router-dom"
+import { useParams } from "react-router-dom";
 import Modal from "react-modal";
 import { v4 as uuidv4 } from "uuid"; // Import uuid
 import axios from "axios";
@@ -177,7 +177,7 @@ function DragSpace() {
                               boxType === "skill" ? skillSettings : boxText,
                       }
                     : box
-            )
+            ).filter((box) => box.content !== "")
         );
         setIsModalOpen(false);
     };
@@ -195,6 +195,12 @@ function DragSpace() {
                 box.id === id ? { ...box, content: newContent } : box
             )
         );
+    };
+
+    const afterOpenModal = () => {};
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setBoxes((prevBoxes) => prevBoxes.filter((box) => box.content !== ""));
     };
 
     return (
@@ -234,20 +240,13 @@ function DragSpace() {
             </button>
 
             <Modal
+                className="Modal"
+                overlayClassName="Overlay"
                 isOpen={isModalOpen}
-                onRequestClose={() => setIsModalOpen(false)}
-                contentLabel="Edit Box"
-                style={{
-                    content: {
-                        top: "50%",
-                        left: "50%",
-                        right: "auto",
-                        bottom: "auto",
-                        marginRight: "-50%",
-                        transform: "translate(-50%, -50%)",
-                    },
-                }}>
-                <ModalWindow
+                onAfterOpen={afterOpenModal}
+                onRequestClose={closeModal} //TODO : Add functionality to remove empty boxes
+                contentLabel="Edit Box">
+                <ModalWindow 
                     handleModalSave={handleModalSave}
                     handleDeleteBox={handleDeleteBox}
                     gridSize={gridSize}

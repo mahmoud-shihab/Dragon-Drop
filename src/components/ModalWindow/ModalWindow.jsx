@@ -1,4 +1,4 @@
-import "./ModalWindow.scss"
+import "./ModalWindow.scss"; //TODO: Fix Styling
 
 function ModalWindow({
     handleModalSave,
@@ -29,11 +29,42 @@ function ModalWindow({
     };
 
     return (
-        <form>
-            <h2>Edit Box</h2>
-            <div>
-                <label>Type:</label>
+        <form className="modal-window" onKeyUp={(e) => e.key === "Enter" && handleModalSave()}>
+            <h2 className="modal-window__heading">Edit Box</h2>
+            <div className="modal-window__input-space modal-window__input-space--dimensions">
+                <div className="modal-window__input-space">
+                    <label htmlFor="width" className="modal-window__label">
+                        Width (in grid units):
+                    </label>
+                    <input
+                        id="width"
+                        type="number"
+                        value={boxWidth}
+                        onChange={(e) => setBoxWidth(Number(e.target.value))}
+                        min={1}
+                        max={Math.floor(containerWidth / gridSize)}
+                    />
+                </div>
+                <div className="modal-window__input-space">
+                    <label htmlFor="height" className="modal-window__label">
+                        Height (in grid units):
+                    </label>
+                    <input
+                        id="height"
+                        type="number"
+                        value={boxHeight}
+                        onChange={(e) => setBoxHeight(Number(e.target.value))}
+                        min={1}
+                        max={Math.floor(containerHeight / gridSize)}
+                    />
+                </div>
+            </div>
+            <div className="modal-window__input-space">
+                <label className="modal-window__label" htmlFor="type">
+                    Type:
+                </label>
                 <select
+                    id="type"
                     value={boxType}
                     onChange={(e) => setBoxType(e.target.value)}>
                     <option value="name">Name</option>
@@ -43,9 +74,12 @@ function ModalWindow({
                 </select>
             </div>
             {boxType === "name" && (
-                <div>
-                    <label>Text:</label>
+                <div className="modal-window__input-space">
+                    <label htmlFor="name" className="modal-window__label">
+                        Text:
+                    </label>
                     <input
+                        id="name"
                         type="text"
                         value={boxText}
                         onChange={(e) => setBoxText(e.target.value)}
@@ -53,9 +87,12 @@ function ModalWindow({
                 </div>
             )}
             {boxType === "portrait" && (
-                <div>
-                    <label>Upload Image:</label>
+                <div className="modal-window__input-space">
+                    <label htmlFor="image" className="modal-window__label">
+                        Upload Image:
+                    </label>
                     <input
+                        id="image"
                         type="file"
                         accept="image/*"
                         onChange={handleImageUpload} // Handle image file upload
@@ -63,21 +100,26 @@ function ModalWindow({
                 </div>
             )}
             {boxType === "text" && (
-                <div>
-                    <label>Text:</label>
+                <div className="modal-window__input-space">
+                    <label htmlFor="text" className="modal-window__label">
+                        Text:
+                    </label>
                     <textarea
+                        id="text"
                         className="modal-window__text-area"
                         value={boxText}
                         onChange={(e) => setBoxText(e.target.value)}
-                        style={{ width: "100%" }}
                     />
                 </div>
             )}
             {boxType === "skill" && (
-                <div>
-                    <div>
-                        <label>Skill Name:</label>
+                <div className="modal-window__input-space modal-window__input-space--skills">
+                    <div className="modal-window__input-space">
+                        <label htmlFor="skill-name" className="modal-window__label">
+                            Skill Name:
+                        </label>
                         <input
+                            id="skill-name"
                             type="text"
                             value={skillSettings.skillName}
                             onChange={(e) =>
@@ -88,9 +130,12 @@ function ModalWindow({
                             }
                         />
                     </div>
-                    <div>
-                        <label>Number of Dice:</label>
+                    <div className="modal-window__input-space">
+                        <label htmlFor="dice-count" className="modal-window__label">
+                            Number of Dice:
+                        </label>
                         <input
+                            id="dice-count"
                             type="number"
                             value={skillSettings.diceCount}
                             onChange={(e) =>
@@ -102,9 +147,12 @@ function ModalWindow({
                             min={1}
                         />
                     </div>
-                    <div>
-                        <label>Type of Dice:</label>
+                    <div htmlFor="dice-type" className="modal-window__input-space">
+                        <label className="modal-window__label">
+                            Type of Dice:
+                        </label>
                         <input
+                            id="dice-type"
                             type="number"
                             value={skillSettings.diceType}
                             onChange={(e) =>
@@ -116,9 +164,10 @@ function ModalWindow({
                             min={2}
                         />
                     </div>
-                    <div>
-                        <label>Modifier:</label>
+                    <div className="modal-window__input-space">
+                        <label htmlFor="modifier" className="modal-window__label">Modifier:</label>
                         <input
+                            id="modifier"
                             type="number"
                             value={skillSettings.modifier}
                             onChange={(e) =>
@@ -131,39 +180,20 @@ function ModalWindow({
                     </div>
                 </div>
             )}
-            <div>
-                <label>Width (in grid units):</label>
-                <input
-                    type="number"
-                    value={boxWidth}
-                    onChange={(e) => setBoxWidth(Number(e.target.value))}
-                    min={1}
-                    max={Math.floor(containerWidth / gridSize)}
-                />
+            <div className="modal-window__buttons">
+                <button
+                    className="modal-window__button modal-window__button--save"
+                    type="button"
+                    onClick={handleModalSave}>
+                    Save
+                </button>
+                <button
+                    type="button"
+                    className="modal-window__button modal-window__button--delete"
+                    onClick={handleDeleteBox}>
+                    Delete
+                </button>
             </div>
-            <div>
-                <label>Height (in grid units):</label>
-                <input
-                    type="number"
-                    value={boxHeight}
-                    onChange={(e) => setBoxHeight(Number(e.target.value))}
-                    min={1}
-                    max={Math.floor(containerHeight / gridSize)}
-                />
-            </div>
-            <button type="button" onClick={handleModalSave}>
-                Save
-            </button>
-            <button
-                type="button"
-                onClick={handleDeleteBox}
-                style={{
-                    marginLeft: "10px",
-                    backgroundColor: "red",
-                    color: "white",
-                }}>
-                Delete
-            </button>
         </form>
     );
 }

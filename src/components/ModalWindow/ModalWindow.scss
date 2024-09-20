@@ -1,7 +1,60 @@
+@use "../../styles/partials/_colors.scss" as c;
+
 .modal-window{
+    display: flex;
+    flex-direction: column;
+    &__heading{}
+    &__input-space{
+        display: flex;
+        flex-direction: column;
+        padding-block: 5px;
+        gap: 5px;
+        width: 100%;
+        &--skills{
+            display: flex;
+            gap: 10px;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        &--dimensions{
+            @extend .modal-window__input-space--skills;
+        }
+    }
+    &__label{
+        font-weight: 500;
+    }
     &__text-area{
-        width: 200px;
-        height: 400px;
+        width: 100%;
+        height: 180px;
         padding: 5px;
+        resize: none;
+    }
+    &__buttons{
+        position: absolute;
+        bottom: 25px;
+        align-self: flex-end;
+        display: flex;
+        gap: 15px;
+    }
+    &__button{
+        padding: 10px;
+        background-color: #2563eb;
+        color: white;
+        width: 10ch;
+        border-radius: 20px;
+        border: none;
+        cursor: pointer;
+        &--save{
+            background-color: green;
+            &:hover{
+                background-color: darkgreen;
+            }
+        }
+        &--delete{
+            background-color: red;
+            &:hover{
+                background-color: c.$site-red;
+            }
+        }
     }
 }
