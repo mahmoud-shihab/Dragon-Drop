@@ -21,11 +21,15 @@
         font-size: 4rem;
     }
     &__button{
+        width: 10ch;
         padding: 10px;
         background-color: c.$site-red;
         color: white;
-        border-radius: 30%;
+        border-radius: 20px;
         border: none;
         cursor: pointer;
+        &:hover{
+            background-color: darken(c.$site-red, 10%);
+        }
     }
 }
