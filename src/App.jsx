@@ -13,6 +13,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Navigate to="/" />} />
+                <Route path="/sheets/:sheetID" element={<Home />} />
             </Routes>
             <Footer />
         </>
