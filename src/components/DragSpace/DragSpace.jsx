@@ -1,17 +1,25 @@
-import React, { useState } from "react";
-import { DndContext, useSensors, useSensor, MouseSensor, TouchSensor } from "@dnd-kit/core";
+import React, { useEffect, useState } from "react";
+import {useParams} from "react-router-dom"
 import Modal from "react-modal";
 import { v4 as uuidv4 } from "uuid"; // Import uuid
-import { createSnapModifier } from "@dnd-kit/modifiers";
+import axios from "axios";
 import "./DragSpace.scss";
 import ModalWindow from "../ModalWindow/ModalWindow";
 import AddNewBoxButton from "../AddNewBoxButton/AddNewBoxButton";
 import DragBox from "../DragBox/DragBox";
+import {
+    DndContext,
+    useSensors,
+    useSensor,
+    MouseSensor,
+    TouchSensor,
+} from "@dnd-kit/core";
+import { createSnapModifier } from "@dnd-kit/modifiers";
 
 const gridSize = 100; // Size of the grid squares
 const containerWidth = 1000; // Width of the container div
 const containerHeight = 1000; // Height of the container div
-const containerPadding= 10;
+const containerPadding = 10;
 
 Modal.setAppElement("#root"); // Necessary for accessibility
 
@@ -68,7 +76,24 @@ function findOpenPosition(newBoxSize, boxes) {
 }
 
 function DragSpace() {
+    const params = useParams();
     const [boxes, setBoxes] = useState([]);
+
+    async function getSheet() {
+        const { data } = await axios.get(
+            `http://localhost:8080/api/v1/sheets/${params.sheetID}`
+        );
+        setBoxes(data.character_sheet);
+    }
+
+    useEffect(() => {
+        if (params.sheetID !== undefined) {
+            getSheet();
+        } else {
+            setBoxes([]);
+        }
+    }, [params.sheetID]);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedBox, setSelectedBox] = useState(null);
     const [boxText, setBoxText] = useState("");
@@ -81,10 +106,7 @@ function DragSpace() {
         diceType: 6,
         modifier: 0,
     });
-    const sensors = useSensors(
-        useSensor(MouseSensor),
-        useSensor(TouchSensor)
-    );
+    const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
     const addBox = () => {
         const newBoxSize = { width: 1, height: 1 };
@@ -184,11 +206,11 @@ function DragSpace() {
             <div
                 className="drag-space"
                 style={{
-                    width: `${containerWidth+containerPadding*2}px`,
-                    height: `${containerHeight+containerPadding*2}px`,
+                    width: `${containerWidth + containerPadding * 2}px`,
+                    height: `${containerHeight + containerPadding * 2}px`,
                     position: "relative",
                     overflow: "hidden",
-                    padding: `${containerPadding}px`
+                    padding: `${containerPadding}px`,
                 }}>
                 {boxes?.map((box) => (
                     <DragBox
@@ -207,7 +229,9 @@ function DragSpace() {
                 ))}
             </div>
             <AddNewBoxButton handleAddBox={addBox} />
-            <button type="button" onClick={()=>console.log(boxes)}>Check Structure</button>
+            <button type="button" onClick={() => console.log(boxes)}>
+                Check Structure
+            </button>
 
             <Modal
                 isOpen={isModalOpen}

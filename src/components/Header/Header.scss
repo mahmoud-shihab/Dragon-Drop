@@ -1,13 +1,19 @@
 @use "../../styles/partials/_colors.scss" as c;
 
 .header{
-    padding: 10px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     border-bottom: 1px solid black;
+    padding: 10px;
     margin-bottom: 10px;
+    &__alignment{
+        width: 1020px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
     &__logo{
         width: 100px;
     }
