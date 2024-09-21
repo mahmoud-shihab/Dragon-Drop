@@ -106,7 +106,14 @@ function DragSpace() {
         diceType: 6,
         modifier: 0,
     });
-    const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
+    const sensors = useSensors(
+        useSensor(MouseSensor, {
+            activationConstraint: {
+                distance: 5,
+            },
+        }),
+        useSensor(TouchSensor)
+    );
 
     const addBox = () => {
         const newBoxSize = { width: 1, height: 1 };
@@ -167,17 +174,19 @@ function DragSpace() {
 
     const handleModalSave = () => {
         setBoxes((prevBoxes) =>
-            prevBoxes.map((box) =>
-                box.id === selectedBox.id
-                    ? {
-                          ...box,
-                          size: { width: boxWidth, height: boxHeight },
-                          type: boxType,
-                          content:
-                              boxType === "skill" ? skillSettings : boxText,
-                      }
-                    : box
-            ).filter((box) => box.content !== "")
+            prevBoxes
+                .map((box) =>
+                    box.id === selectedBox.id
+                        ? {
+                              ...box,
+                              size: { width: boxWidth, height: boxHeight },
+                              type: boxType,
+                              content:
+                                  boxType === "skill" ? skillSettings : boxText,
+                          }
+                        : box
+                )
+                .filter((box) => box.content !== "")
         );
         setIsModalOpen(false);
     };
@@ -244,9 +253,9 @@ function DragSpace() {
                 overlayClassName="Overlay"
                 isOpen={isModalOpen}
                 onAfterOpen={afterOpenModal}
-                onRequestClose={closeModal} //TODO : Add functionality to remove empty boxes
+                onRequestClose={closeModal}
                 contentLabel="Edit Box">
-                <ModalWindow 
+                <ModalWindow
                     handleModalSave={handleModalSave}
                     handleDeleteBox={handleDeleteBox}
                     gridSize={gridSize}
