@@ -29,7 +29,7 @@ function ModalWindow({
     };
 
     return (
-        <form className="modal-window" onKeyUp={(e) => e.key === "Enter" && handleModalSave()}>
+        <form className="modal-window" >
             <h2 className="modal-window__heading">Edit Box</h2>
             <div className="modal-window__input-space modal-window__input-space--dimensions">
                 <div className="modal-window__input-space">
