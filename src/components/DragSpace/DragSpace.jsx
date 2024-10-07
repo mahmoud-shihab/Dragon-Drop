@@ -81,7 +81,7 @@ function DragSpace() {
 
     async function getSheet() {
         const { data } = await axios.get(
-            `http://localhost:8080/api/v1/sheets/${params.sheetID}`
+            `${import.meta.env.VITE_BASE_URL}/api/v1/sheets/${params.sheetID}`
         );
         setBoxes(data.character_sheet);
     }
